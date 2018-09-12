@@ -226,8 +226,17 @@ if __name__ == "__main__":
     c_info = get_merchant_info('testSP_平台服务商')
     sh_info = get_merchant_info('', c_info[0]['id'], c_info[0]['treeId'])
     md_info = get_merchant_info('', sh_info[1]['id'], sh_info[1]['treeId'])
-    del_merchant(md_info[0]['id'])
-    del_merchant(sh_info[0]['id'])
-    del_merchant(sh_info[1]['id'])
+    try:
+        del_merchant(md_info[0]['id'])
+    except:
+        print('门店删除失败')
+    try:
+        del_merchant(sh_info[0]['id'])
+    except:
+        print('商户删除失败')
+    try:
+        del_merchant(sh_info[1]['id'])
+    except:
+        print('商户删除失败')
     unbind_device([d['id'] for d in device_info])
     delete_customer(customer_info['id'])

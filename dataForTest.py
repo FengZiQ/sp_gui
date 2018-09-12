@@ -144,11 +144,56 @@ def get_sp_user_info(username):
         return user_info
 
 
+# 上传证书
+def upload_cer(file):
+    files = {'file': open(file, 'rb')}
+    try:
+        res = sp_session.post(
+                sp_server + 'file/upload',
+                data={
+                    'name': 'file',
+                    'filename': file,
+                    'Content-Type': 'application/x-pkcs12',
+                    'file_id': 0
+                },
+                files=files
+            )
+        temp = json.loads(res.text)
+    except Exception as e:
+        print(e)
+    else:
+        return temp['data']
+
+
+# 新增支付配置
+def add_pay_configuration(cus_id, config_path, para):
+    para['customerId'] = str(cus_id)
+    try:
+        res = sp_session.post(
+                sp_server + config_path + '/add',
+                json=para
+            )
+        temp = json.loads(res.text)
+    except Exception as e:
+        print(e)
+    else:
+        return temp['data']
+
+
+# 删除支付配置
+def del_pay_config(c_id, config_path):
+    try:
+        sp_session.post(
+            sp_server + config_path + '/deletes',
+            json=[str(c_id)]
+        )
+    except Exception as e:
+        print(e)
+
+
 device_info, customer_info = test_data()
 
 
 if __name__ == "__main__":
     pass
-    # print(add_sp_user(4302, [60], 'tester12'))
-
-
+    # print(upload_cer(config_data['file_path'] + 'yl.pfx'))

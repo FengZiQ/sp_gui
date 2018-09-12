@@ -10,9 +10,9 @@ url = "http://192.168.20.94:8083/testlink/lib/api/xmlrpc/v1/xmlrpc.php"
 tester_key = {"admin": "68f26f458e8b1d537043f76d78f815d9"}
 tlc = testlink.TestlinkAPIClient(url, tester_key["admin"])
 
-project_name = '设备管理平台'
-test_plan_name = '预上线环境_0820'
-first_menu = ['设备首页', '服务商管理', '设备管理', '配置管理', '用户管理', '系统管理', '数据统计']
+project_name = '商户管理平台'
+test_plan_name = '9.11集群优化'
+first_menu = ['商户管理', '设备管理', '商户用户管理', '支付配置管理', '账单管理', '账单图表']
 
 
 def to_execute_cases():

@@ -477,10 +477,10 @@ def md_add_config():
         end='@结束@'
     )
     time.sleep(3)
-    # 点击网上银行按钮
+    # 点击网商银行按钮
     tool.click_action(
         'mybankPayBtn',
-        '点击网上银行按钮',
+        '点击网商银行按钮',
         locator=By.ID
     )
     # 网商银行分配的APPID输入框：APPidTest1

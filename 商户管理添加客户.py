@@ -7,6 +7,7 @@ tool = GUITestTool()
 
 # 返回按钮
 def return_button():
+    a = tool.FailedFlag
     # 点击添加客户按钮
     tool.click_action(
         'addbtn',
@@ -33,8 +34,8 @@ def return_button():
     # 断言
     tool.equal_text_assert(
         'addbtn',
-        '添加客户按钮',
-        '添加客户',
+        '添加商户按钮',
+        '添加商户',
         end='@结束@',
         locator=By.ID
     )
@@ -46,7 +47,7 @@ def add_sub_pro_mer():
         # 点击添加客户按钮
         tool.click_action(
             'addbtn',
-            '添加客户按钮',
+            '添加商户按钮',
             locator=By.ID
         )
         if i == 0:

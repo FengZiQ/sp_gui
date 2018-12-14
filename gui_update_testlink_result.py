@@ -11,12 +11,11 @@ tester_key = {"admin": "68f26f458e8b1d537043f76d78f815d9"}
 tlc = testlink.TestlinkAPIClient(url, tester_key["admin"])
 
 project_name = '商户管理平台'
-test_plan_name = '9.11集群优化'
+test_plan_name = '12.13'
 first_menu = ['商户管理', '设备管理', '商户用户管理', '支付配置管理', '账单管理', '账单图表']
 
 
 def to_execute_cases():
-
     # get targeted project
     projects = tlc.getProjects()
     target_project = [project for project in projects if project['name'] == project_name]
@@ -38,15 +37,13 @@ def to_execute_cases():
 
     # traversal each of test case
     for case in target_test_cases:
-
         for case_body in case.values():
             # if test case has been run
-            if not case_body['exec_on_build']:
-
+            if not case_body['exec_on_build'] or case_body['exec_status'] == 'f':
                 # get time stamp for reportTCResult
                 start_time = time.time()
                 time_stamp = (time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
-                duration_min = str((time.time() - start_time)/60)
+                duration_min = str((time.time() - start_time) / 60)
 
                 # get case information for reportTCResult in case body
                 case_id = case_body["tcase_id"]
@@ -55,7 +52,7 @@ def to_execute_cases():
                 test_case_external_id = case_body['external_id']
                 case_platform_name = case_body['platform_name']
 
-                # get case result for reportTCResult
+                # getting login user info
                 login_name = tlc.getTestCaseAssignedTester(
                     target_test_plan[0]['id'],
                     case_body['full_external_id'],

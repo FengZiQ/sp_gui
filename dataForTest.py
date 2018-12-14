@@ -1,4 +1,5 @@
 # coding=utf-8
+import time
 from spApiCondition import *
 
 
@@ -35,10 +36,9 @@ def add_merchant(name, p_id, tp):
                 }
             )
         temp = json.loads(res.text)
+        return temp['data']
     except Exception as e:
         print(e)
-    else:
-        return temp['data']
 
 
 # 商户门店设备绑定
@@ -84,6 +84,7 @@ def test_data():
     try:
         # 创建服务商"testSP_平台服务商"，并销售15台设备
         new_customer('testSP_平台服务商')
+        time.sleep(10)
         # 获取设备信息
         dev_info = get_unsold_device_info()
         # 获取服务商信息
@@ -112,10 +113,9 @@ def add_sp_user(c_id, r_id, name='testUser'):
                 }
             )
         temp = json.loads(res.text)
+        return temp['data']
     except Exception as e:
         print(e)
-    else:
-        return temp['data']
 
 
 # 删除sp用户
@@ -146,8 +146,8 @@ def get_sp_user_info(username):
 
 # 上传证书
 def upload_cer(file):
-    files = {'file': open(file, 'rb')}
     try:
+        files = {'file': open(file, 'rb')}
         res = sp_session.post(
                 sp_server + 'file/upload',
                 data={
@@ -174,10 +174,9 @@ def add_pay_configuration(cus_id, config_path, para):
                 json=para
             )
         temp = json.loads(res.text)
+        return temp['data']
     except Exception as e:
         print(e)
-    else:
-        return temp['data']
 
 
 # 删除支付配置

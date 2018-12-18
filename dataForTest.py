@@ -80,6 +80,7 @@ def del_merchant(m_id):
         print('删除商户失败')
 
 
+# 创建服务商“testSP_平台服务商”，并给其销售15台设备
 def test_data():
     try:
         # 创建服务商"testSP_平台服务商"，并销售15台设备
@@ -190,9 +191,80 @@ def del_pay_config(c_id, config_path):
         print(e)
 
 
+# 新增票据打印配置
+def add_receipt_printer_config(name):
+    try:
+        cus_id = None
+        res = sp_session.get(
+            sp_server + 'customer/list?operateType=chooseServiceProvider'
+        )
+        temp = json.loads(res.text)
+        for d in temp['data']:
+            if d['name'] == 'testSP_平台服务商':
+                cus_id = d['id']
+        sp_session.post(
+            sp_server + 'receiptPrintConfig/add',
+            json={
+                "id": "",
+                "name": name,
+                "customerId": str(cus_id),
+                "printType": "0",
+                "type": "1",
+                "fields": [
+                    {"key": "orderNo", "name": "1"},
+                    {"key": "transactionId", "name": "2"},
+                    {"key": "time", "name": "3"},
+                    {"key": "totalFee", "name": "4"},
+                    {"key": "payFee", "name": "5"},
+                    {"key": "discountFee", "name": "6"}
+                ]
+            }
+        )
+    except Exception as e:
+        print(e)
+
+
+# 获取票据打印信息
+def get_receipt_printer_config_info(name):
+    try:
+        res = sp_session.get(
+            sp_server + 'receiptPrintConfig/pageList?name=' + name
+        )
+        temp = json.loads(res.text)
+        return temp['data']['list'][0]
+    except Exception as e:
+        print(e)
+
+
+# 票据打印配置绑定解绑设备
+def bind_device_from_receipt_config(con_id, cus_id=list):
+    try:
+        sp_session.post(
+            sp_server + 'receiptPrintCustomerConfig/add',
+            json={
+                "customerIds": cus_id,
+                "configId": str(con_id)
+            }
+        )
+    except Exception as e:
+        print(e)
+
+
+
+# 删除票据打印配置
+def del_receipt_printer_config(config_id):
+    try:
+        sp_session.post(
+            sp_server + 'receiptPrintConfig/deletes',
+            json=[int(config_id)]
+        )
+    except Exception as e:
+        print(e)
+
+
+# 创建服务商“testSP_平台服务商”，并给其销售15台设备
 device_info, customer_info = test_data()
 
 
 if __name__ == "__main__":
     pass
-    # print(upload_cer(config_data['file_path'] + 'yl.pfx'))

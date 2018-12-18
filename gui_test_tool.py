@@ -175,4 +175,4 @@ class GUITestTool(object):
             testlink(Pass + '\n')
 
     def finished(self):
-        self.driver.close()
+        self.driver.quit()

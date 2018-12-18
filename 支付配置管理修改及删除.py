@@ -647,7 +647,7 @@ if __name__ == "__main__":
     swift_mod_del()
     my_bank_mod_del()
     tencent_cloud_mod_del()
-    # sqb_mod_del()
+    sqb_mod_del()
     tool.mark_status()
     tool.finished()
     # 清理环境

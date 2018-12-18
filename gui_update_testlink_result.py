@@ -11,7 +11,7 @@ tester_key = {"admin": "68f26f458e8b1d537043f76d78f815d9"}
 tlc = testlink.TestlinkAPIClient(url, tester_key["admin"])
 
 project_name = '商户管理平台'
-test_plan_name = '12.13'
+test_plan_name = '调试票据打印配置'
 first_menu = ['商户管理', '设备管理', '商户用户管理', '支付配置管理', '账单管理', '账单图表']
 
 
